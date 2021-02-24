@@ -1,46 +1,53 @@
-# Getting Started with Create React App
+# Shakepay
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The project was created using Typescript and ReactJS.
 
-## Available Scripts
+## How to run it?
 
-In the project directory, you can run:
+Clone the project by running:
 
-### `yarn start`
+```
+git clone https://github.com/otaviobps/shakepay.git
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Then enter the `shakepay` directory.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Using Docker
 
-### `yarn test`
+1. To run the project you need to build the docker image:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+docker build -t shakepay .
+```
 
-### `yarn build`
+**Important: Docker must have at least 2GB ram to run the container, otherwise it will fail with a memory heap error. This is because React will build the project, and it needs 2GB or more of ram.**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. After building the image, run the container. You need to bind a port to the container. Internally the port 80 is exposed because the container uses NGINX, but you need to bind some port of the host to the port 80 of the container:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+docker run -d -p 3000:80 shakepay
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Enter `localhost:3000` in your browser. The `-p 3000:80` command binds the port 3000 of the host to the port 80 of the container. If port 3000 is already in use in your computer, change the port in the command to any available port, keeping the `:80` part of the command, then in the browser enter `localhost:<theportyouchose>`
 
-### `yarn eject`
+### Not using Docker
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+If you don't want to run it in Docker, you can run the development version:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. You need to have Nodejs installed in your computer. You can install it by visiting the [Nodejs](https://nodejs.org/en/) website.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. Then, run:
+```
+npm install
+```
+This will install all dependencies of the project.
 
-## Learn More
+3. Finally, run:
+```
+npm run start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The browser will open showing the chart.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+You can also build the production version, follow the instructions shown [here](https://create-react-app.dev/docs/production-build/).
