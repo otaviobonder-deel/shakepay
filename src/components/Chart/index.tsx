@@ -36,8 +36,15 @@ const formatDate = (tickItem: string): string =>
 const formatYAxis = (tickItem: number): string =>
   Currency(tickItem, { symbol: "$", precision: 0 }).format();
 
-const formatTooltip = (value: number): string =>
-  Currency(value, { symbol: "$", precision: 0 }).format();
+const formatTooltip = (value: number, name: string): string => {
+  if (name === "BTC amount") {
+    return Currency(value, { symbol: "BTC", precision: 8 }).format();
+  }
+  if (name === "ETH amount") {
+    return Currency(value, { symbol: "ETH", precision: 8 }).format();
+  }
+  return Currency(value, { symbol: "$", precision: 0 }).format();
+};
 
 const data = balanceSum(rawData as IData[]);
 
@@ -54,7 +61,8 @@ const Chart: React.FC = () => {
         }}
       >
         <XAxis dataKey="createdAt" tickFormatter={formatDate} />
-        <YAxis tickFormatter={formatYAxis} />
+        <YAxis yAxisId="left" tickFormatter={formatYAxis} />
+        <YAxis yAxisId="right" orientation="right" />
         <Tooltip formatter={formatTooltip} labelFormatter={formatDate} />
         <Legend />
         <Line
@@ -62,6 +70,24 @@ const Chart: React.FC = () => {
           type="monotone"
           dataKey="total"
           dot={false}
+          yAxisId="left"
+          stroke="green"
+        />
+        <Line
+          name="BTC amount"
+          type="monotone"
+          dataKey="totalBtc"
+          dot={false}
+          yAxisId="right"
+          stroke="#f7931a"
+        />
+        <Line
+          name="ETH amount"
+          type="monotone"
+          dataKey="totalEth"
+          dot={false}
+          yAxisId="right"
+          stroke="blue"
         />
       </LineChart>
     </ResponsiveContainer>

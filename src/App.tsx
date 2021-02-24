@@ -1,11 +1,11 @@
 import React from "react";
-import Chart from "./components/Chart";
 import "./App.css";
+import ChartPage from "./pages/chart";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Chart />
+      <ChartPage />
     </div>
   );
 };
