@@ -1,5 +1,8 @@
 import dayjs from "dayjs";
+import Currency from "currency.js";
 import rates from "../assets/rates.json";
+import ethRates from "../assets/eth_rates.json";
+import btcRates from "../assets/btc_rates.json";
 
 interface IData {
   createdAt: string;
@@ -39,6 +42,12 @@ const balanceSum = (data: IData[]): IBalance[] => {
   ];
   data.forEach((operation) => {
     const lastValue = balance[balance.length - 1];
+    const ethRate = ethRates.find((day) =>
+      dayjs(day.createdAt).isSame(operation.createdAt, "d")
+    )?.midMarketRate;
+    const btcRate = btcRates.find((day) =>
+      dayjs(day.createdAt).isSame(operation.createdAt, "d")
+    )?.midMarketRate;
     if (operation.type === "peer" || operation.type === "external account") {
       // client is depositing CAD
       if (
@@ -54,10 +63,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
 
@@ -75,10 +83,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
 
@@ -96,10 +103,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
 
@@ -117,10 +123,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
 
@@ -138,10 +143,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
 
@@ -159,10 +163,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
     }
@@ -182,10 +185,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
 
@@ -203,10 +205,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
 
@@ -224,10 +225,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
 
@@ -245,10 +245,9 @@ const balanceSum = (data: IData[]): IBalance[] => {
         };
         balance.push({
           ...obj,
-          total:
-            obj.totalCad +
-            obj.totalEth * rates.ETH_CAD +
-            obj.totalBtc * rates.BTC_CAD,
+          total: Currency(obj.totalCad)
+            .add(Currency(obj.totalEth).multiply(ethRate || 1))
+            .add(Currency(obj.totalBtc).multiply(btcRate || 1)).value,
         });
       }
     }
